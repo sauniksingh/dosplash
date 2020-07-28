@@ -9,10 +9,11 @@ import kotlinx.android.parcel.Parcelize
  * Bada Business
  */
 @Parcelize
-data class Image (
+data class UnsplashImage(
     var urls: Urls? = Urls(),
 
     @SerializedName("alt_description")
     var description: String? = "",
-    var user: User? = User()
-):Parcelable
+    var user: User? = User(),
+    var type: String = ""
+) : Parcelable

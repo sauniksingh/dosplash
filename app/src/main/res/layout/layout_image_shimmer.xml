@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <com.facebook.shimmer.ShimmerFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:shimmer="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/shimmer_view_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:background="@color/colorPrimary"
+        android:orientation="vertical"
+        shimmer:shimmer_auto_start="true"
+        shimmer:shimmer_duration="800">
+
+        <LinearLayout
+            android:id="@+id/ll_shimmer_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/dp10">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp205"
+                android:background="@color/shimmer_bg" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp408"
+                android:layout_marginTop="@dimen/dp8"
+                android:background="@color/shimmer_bg" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp205"
+                android:background="@color/shimmer_bg" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp408"
+                android:layout_marginTop="@dimen/dp8"
+                android:background="@color/shimmer_bg" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp205"
+                android:background="@color/shimmer_bg" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp408"
+                android:layout_marginTop="@dimen/dp8"
+                android:background="@color/shimmer_bg" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp205"
+                android:background="@color/shimmer_bg" />
+        </LinearLayout>
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
+</layout>

@@ -21,9 +21,8 @@
         android:layout_height="@dimen/dp32"
         android:layout_marginEnd="@dimen/dp8"
         android:layout_marginBottom="@dimen/dp8"
-        android:background="@color/colorPrimary"
+        android:background="@drawable/bg_circle_theme_color"
         android:contentDescription="@string/photographer"
-        android:padding="@dimen/dp1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,7 +10,7 @@ import kotlinx.android.synthetic.main.layout_loading_item.view.*
  * Created by Saunik Singh on 5/16/2020.
  * Bada Business
  */
-class LoadMoreViewHolder(itemView: View, onLoadMoreListener: OnLoadMoreListener) :
+class LoadMoreViewHolder(itemView: View, onLoadMoreListener: OnLoadMoreListener?) :
     BaseViewHolder<Any>(itemView) {
     private val loadText: TextView = itemView.loadMoreText
     private val loadProgress: ProgressBar = itemView.progressBar1
@@ -19,7 +19,7 @@ class LoadMoreViewHolder(itemView: View, onLoadMoreListener: OnLoadMoreListener)
         loadText.setOnClickListener {
             loadText.visibility = View.GONE
             loadProgress.visibility = View.VISIBLE
-            onLoadMoreListener.onLoadMore()
+            onLoadMoreListener?.onLoadMore()
         }
     }
 

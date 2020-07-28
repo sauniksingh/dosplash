@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-
+apply plugin: 'kotlin-kapt'
 android {
     compileSdkVersion 30
     buildToolsVersion "29.0.3"
@@ -28,6 +28,71 @@ android {
             buildConfigField 'String', "api", '"https://api.unsplash.com/"'
             buildConfigField 'String', "accessKey", '"gAiRKajCyy1Vi-da_tkTtXwLD3N1jQyXZ9-YwzsUI1o"'
         }
+    }
+    lintOptions {
+        checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
+    }
+    packagingOptions {
+        exclude 'META-INF/rxjava.properties'
+    }
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
+    aaptOptions {
+        useNewCruncher false
+    }
+    signingConfigs {
+        dosplash {
+            storeFile file('../dosplash.jks')
+            storePassword 'dosplash'
+            keyAlias = 'dosplash'
+            keyPassword 'dosplash'
+        }
+    }
+    buildTypes {
+        release {
+            initWith debug
+            // Enables code shrinking, obfuscation, and optimization for only
+
+            // your project's release build type.
+            minifyEnabled true
+            buildConfigField "Boolean", "IS_DEBUG", "false"
+            // Enables resource shrinking, which is performed by the
+            // Android Gradle plugin.
+            shrinkResources true
+            useProguard true    // obfuscate
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            debuggable = false
+            crunchPngs false
+            jniDebuggable false
+            renderscriptDebuggable false
+            pseudoLocalesEnabled false
+            zipAlignEnabled true
+            signingConfig signingConfigs.dosplash
+        }
+        debug {
+            initWith debug
+            buildConfigField "Boolean", "IS_DEBUG", "true"
+
+            debuggable = true
+            minifyEnabled false
+            shrinkResources false
+            useProguard true    // obfuscate
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            crunchPngs false
+            jniDebuggable false
+            renderscriptDebuggable false
+            pseudoLocalesEnabled false
+            zipAlignEnabled true
+            signingConfig signingConfigs.dosplash
+        }
+    }
+    dataBinding {
+        enabled = true
     }
 }
 
@@ -56,4 +121,6 @@ dependencies {
     implementation 'com.google.android.material:material:1.1.0'
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.8.0'
+    implementation 'com.facebook.shimmer:shimmer:0.5.0'
 }

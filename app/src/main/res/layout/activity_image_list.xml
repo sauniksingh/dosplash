@@ -1,135 +1,152 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
-    tools:context=".ui.image.ImageListActivity">
+<layout>
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:elevation="@dimen/dp5"
-        android:gravity="center|top"
-        android:padding="@dimen/dp0"
-        app:contentInsetLeft="@dimen/dp0"
-        app:contentInsetStart="@dimen/dp0"
-        app:contentInsetStartWithNavigation="@dimen/dp0"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/logo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="@dimen/dp2"
-                android:foreground="?attr/selectableItemBackgroundBorderless"
-                android:padding="@dimen/dp16"
-                android:src="@drawable/ic_dosplash_logo"
-                tools:ignore="UnusedAttribute" />
-
-            <SearchView
-                android:id="@+id/searchView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignEnd="@+id/logo"
-                android:layout_alignParentEnd="true"
-                android:layout_gravity="center_vertical|end"
-                android:iconifiedByDefault="true"
-                android:queryHint="Search Here"
-                android:visibility="visible" />
-        </RelativeLayout>
-    </androidx.appcompat.widget.Toolbar>
-
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="?attr/actionBarSize"
-        android:fitsSystemWindows="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+        android:background="@color/colorPrimary"
+        tools:context=".ui.image.ImageListActivity">
 
-        <androidx.core.widget.NestedScrollView
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fillViewport="true"
-            android:scrollbars="vertical"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            android:layout_height="?attr/actionBarSize"
+            android:elevation="@dimen/dp5"
+            android:gravity="center|top"
+            android:padding="@dimen/dp0"
+            app:contentInsetLeft="@dimen/dp0"
+            app:contentInsetStart="@dimen/dp0"
+            app:contentInsetStartWithNavigation="@dimen/dp0"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/logo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/dp2"
+                    android:foreground="?attr/selectableItemBackgroundBorderless"
+                    android:padding="@dimen/dp16"
+                    android:src="@drawable/ic_dosplash_logo"
+                    tools:ignore="UnusedAttribute" />
+
+                <SearchView
+                    android:id="@+id/searchView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignEnd="@+id/logo"
+                    android:layout_alignParentEnd="true"
+                    android:layout_gravity="center_vertical|end"
+                    android:iconifiedByDefault="true"
+                    android:queryHint="Search Here"
+                    android:visibility="visible" />
+            </RelativeLayout>
+        </androidx.appcompat.widget.Toolbar>
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefresh"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="?attr/actionBarSize"
+            android:fitsSystemWindows="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fillViewport="true"
+                android:scrollbars="vertical"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/banner"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp176"
-                    android:background="@color/transparent_black"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    android:layout_height="match_parent">
 
-                    <ImageView
-                        android:id="@+id/headerImage"
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/banner"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:contentDescription="@string/header"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/ic_gallery_placeholder" />
-
-                    <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@color/black_28"
-                        android:orientation="vertical"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_height="@dimen/dp176"
+                        android:background="@color/transparent_black"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
+                        <ImageView
+                            android:id="@+id/headerImage"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:contentDescription="@string/header"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/ic_gallery_placeholder" />
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/black_28"
                             android:orientation="vertical"
-                            tools:ignore="UselessParent">
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
 
-                            <TextView
+                            <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/dosplash"
-                                android:textColor="@color/colorPrimary"
-                                android:textSize="@dimen/sp36"
-                                android:textStyle="bold" />
+                                android:layout_gravity="center"
+                                android:orientation="vertical"
+                                tools:ignore="UselessParent">
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_horizontal"
-                                android:layout_marginTop="@dimen/dp8"
-                                android:text="@string/top_photo"
-                                android:textColor="@color/colorPrimary"
-                                android:textSize="@dimen/sp14" />
-                        </LinearLayout>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/dosplash"
+                                    android:textColor="@color/colorPrimary"
+                                    android:textSize="@dimen/sp36"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_horizontal"
+                                    android:layout_marginTop="@dimen/dp8"
+                                    android:text="@string/top_photo"
+                                    android:textColor="@color/colorPrimary"
+                                    android:textSize="@dimen/sp14" />
+                            </LinearLayout>
+                        </FrameLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/imageList"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp0"
+                        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/banner"
+                        tools:itemCount="28"
+                        tools:listitem="@layout/item_images_even" />
+
+                    <FrameLayout
+                        android:id="@+id/shimmer_frame"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:visibility="gone"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/banner">
+
+                        <include layout="@layout/layout_image_shimmer" />
+
                     </FrameLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.core.widget.NestedScrollView>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/imageList"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/banner"
-                    tools:itemCount="28"
-                    tools:listitem="@layout/item_images_even" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.core.widget.NestedScrollView>
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
