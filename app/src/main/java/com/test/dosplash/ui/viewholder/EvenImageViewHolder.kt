@@ -41,7 +41,7 @@ class EvenImageViewHolder(
                     )
             )
             .into(authorImage)
-        imageClickListener.onImageClick(item)
+        evenImage.setOnClickListener { imageClickListener.onImageClick(item) }
     }
 
 }

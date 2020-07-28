@@ -1,5 +1,7 @@
 package com.test.dosplash.ui.image
 
+import android.content.Intent
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -7,8 +9,8 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.RequestBuilder
 import com.bumptech.glide.integration.recyclerview.RecyclerViewPreloader
 import com.bumptech.glide.util.ViewPreloadSizeProvider
 import com.test.dosplash.AppExecutors
@@ -17,32 +19,36 @@ import com.test.dosplash.base.BaseActivity
 import com.test.dosplash.databinding.LayoutImageShimmerBinding
 import com.test.dosplash.listener.ChildListener
 import com.test.dosplash.model.UnsplashImage
+import com.test.dosplash.util.Constant
 import com.test.dosplash.util.ToastUtils
-import com.test.dosplash.viewmodel.ImageListViewModel
+import com.test.dosplash.viewmodel.ImageViewModel
 import com.test.dosplash.viewmodel.ImageViewModelFactory
 import kotlinx.android.synthetic.main.activity_image_list.*
 
 class ImageListActivity : BaseActivity(), ChildListener {
     private lateinit var mAdapter: ImageAdapter
-    private lateinit var mImageListViewModel: ImageListViewModel
+    private lateinit var mImageViewModel: ImageViewModel
     private var currentPage = 1
     private val pageSize = 9
     private var isLoading = false
     private var images = ArrayList<UnsplashImage>()
     private lateinit var linearLayoutManager: LinearLayoutManager
-    val appExecutor = AppExecutors.getInstance()
+    private val appExecutor: AppExecutors = AppExecutors.getInstance()
     private lateinit var shimmerBinding: LayoutImageShimmerBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_image_list)
-        Log.d("AAO", "Raja")
         initView()
         initRecyclerView()
         setViewModel()
         hitApi()
+        getRandomImage()
     }
 
     override fun onImageClick(unsplashImage: UnsplashImage) {
+        val intent = Intent(this, ImageDetailActivity::class.java)
+        intent.putExtra(Constant.image, unsplashImage)
+        startActivity(intent)
     }
 
     private fun initRecyclerView() {
@@ -65,15 +71,15 @@ class ImageListActivity : BaseActivity(), ChildListener {
             layoutManager = linearLayoutManager
             addOnScrollListener(preloader)
             adapter = mAdapter
-            addOnScrollListener(recyclerViewOnScrollListener)
+//            addOnScrollListener(recyclerViewOnScrollListener)
         }
     }
 
     private fun setViewModel() {
-        mImageListViewModel =
-            ViewModelProvider(this, ImageViewModelFactory()).get(ImageListViewModel::class.java)
-        mImageListViewModel.setGenericListeners(getErrorObserver(), getFailureResponseObserver())
-        mImageListViewModel.imageListData?.observe(
+        mImageViewModel =
+            ViewModelProvider(this, ImageViewModelFactory()).get(ImageViewModel::class.java)
+        mImageViewModel.setGenericListeners(getErrorObserver(), getFailureResponseObserver())
+        mImageViewModel.imageListData?.observe(
             this,
             androidx.lifecycle.Observer { result: ArrayList<UnsplashImage>? ->
                 isLoading = false
@@ -87,6 +93,22 @@ class ImageListActivity : BaseActivity(), ChildListener {
                         images.addAll(result)
                     }
                     updateData()
+                }
+            })
+
+        mImageViewModel.randomImageData?.observe(
+            this,
+            androidx.lifecycle.Observer { result: UnsplashImage? ->
+                result?.apply {
+                    appExecutor.diskIO().execute {
+                        val requestManager = initGlide()
+                        val thumbnailRequest: RequestBuilder<Drawable> =
+                            requestManager.load(result.urls?.thumb)
+                        appExecutor.mainThread().execute {
+                            requestManager.load(result.urls?.full).thumbnail(thumbnailRequest)
+                                .into(headerImage)
+                        }
+                    }
                 }
             })
     }
@@ -115,30 +137,14 @@ class ImageListActivity : BaseActivity(), ChildListener {
     private fun updateData() {
         appExecutor.mainThread().execute {
             mAdapter.setImages(images)
+            mAdapter.displayLoading()
         }
     }
-
-    private val recyclerViewOnScrollListener: RecyclerView.OnScrollListener =
-        object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                val visibleItemCount: Int = linearLayoutManager.childCount
-                val totalItemCount: Int = linearLayoutManager.itemCount
-                val firstVisibleItemPosition: Int =
-                    linearLayoutManager.findFirstVisibleItemPosition()
-                if (!isLoading) {
-                    if (visibleItemCount + firstVisibleItemPosition >= totalItemCount && firstVisibleItemPosition >= 0
-                    ) {
-                        mAdapter.displayLoading()
-                    }
-                }
-            }
-        }
 
     private fun getDataFromServer() {
         if (isNetworkAvailable()) {
             appExecutor.diskIO().execute {
-                mImageListViewModel.getImages(currentPage, pageSize)
+                mImageViewModel.getImages(currentPage, pageSize)
             }
             isLoading = true
         } else {
@@ -169,4 +175,11 @@ class ImageListActivity : BaseActivity(), ChildListener {
         }
     }
 
+    private fun getRandomImage() {
+        if (isNetworkAvailable()) {
+            appExecutor.diskIO().execute {
+                mImageViewModel.getRandomImage()
+            }
+        }
+    }
 }

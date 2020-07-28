@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.test.dosplash.R
 import com.test.dosplash.error.FailureResponse
@@ -21,7 +22,8 @@ abstract class BaseActivity : AppCompatActivity() {
     fun initGlide(): RequestManager {
         val options = RequestOptions()
             .placeholder(R.drawable.ic_gallery_placeholder)
-            .error(R.drawable.ic_gallery_placeholder)
+            .error(R.drawable.ic_gallery_placeholder).diskCacheStrategy(
+                DiskCacheStrategy.ALL)
         return Glide.with(this)
             .setDefaultRequestOptions(options)
     }

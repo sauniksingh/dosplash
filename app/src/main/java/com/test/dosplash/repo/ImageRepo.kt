@@ -10,7 +10,7 @@ import com.test.dosplash.model.UnsplashImage
  * Created by Saunik Singh on 28-07-2020.
  * Bada Business
  */
-class ImageListRepo {
+class ImageRepo {
     fun getImages(
         imageLiveData: RichMediatorLiveData<ArrayList<UnsplashImage>?>,
         page: Int,
@@ -35,5 +35,26 @@ class ImageListRepo {
             }
         })
     }
+    fun getRandomImage(
+        imageLiveData: RichMediatorLiveData<UnsplashImage>
+    ) {
+        DataManager.getInstance().getRandomImages().enqueue(object :
+            NetworkCallback<UnsplashImage>() {
+            override fun onSuccess(t: UnsplashImage) {
+                imageLiveData.value = t
+            }
 
+            override fun onFailure(failureResponse: FailureResponse?) {
+                failureResponse?.apply {
+                    imageLiveData.setFailure(failureResponse)
+                }
+            }
+
+            override fun onError(t: Throwable?) {
+                t?.apply {
+                    imageLiveData.setError(t)
+                }
+            }
+        })
+    }
 }

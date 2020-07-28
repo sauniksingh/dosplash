@@ -52,4 +52,8 @@ public class ApiManager {
     public Call<ArrayList<UnsplashImage>> getImages(int page, int item) {
         return apiClient.getImages(BuildConfig.accessKey, page, item);
     }
+
+    public Call<UnsplashImage> getRandomImages() {
+        return apiClient.getRandomImage(BuildConfig.accessKey);
+    }
 }

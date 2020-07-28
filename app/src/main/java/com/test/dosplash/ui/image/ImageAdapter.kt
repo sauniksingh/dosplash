@@ -100,9 +100,9 @@ class ImageAdapter(
                 val image = UnsplashImage()
                 image.type = loading
                 items.add(image)
+                notifyItemInserted(items.size - 1)
+//                notifyDataSetChanged()
             }
-            notifyItemInserted(items.size - 1)
-            notifyDataSetChanged()
         }
     }
 
@@ -115,7 +115,7 @@ class ImageAdapter(
                 items.removeAt(removePosition)
             }
             notifyItemRemoved(removePosition)
-            notifyDataSetChanged()
+//            notifyDataSetChanged()
         }
     }
 

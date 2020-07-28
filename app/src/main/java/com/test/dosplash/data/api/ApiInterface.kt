@@ -16,4 +16,7 @@ interface ApiInterface {
         @Query("page") page: Int,
         @Query("per_page") item: Int
     ): Call<ArrayList<UnsplashImage?>?>?
+
+    @GET("photos/random?")
+    fun getRandomImage(@Query("client_id") clientId: String): Call<UnsplashImage>
 }

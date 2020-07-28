@@ -9,9 +9,9 @@ import androidx.lifecycle.ViewModelProvider
  */
 class ImageViewModelFactory: ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(ImageListViewModel::class.java)) {
+        if (modelClass.isAssignableFrom(ImageViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return ImageListViewModel() as T
+            return ImageViewModel() as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.item_images_odd.view.*
  */
 class OddImageViewHolder(
     itemView: View,
-    imageClickListener: ImageClickListener,
+    private val imageClickListener: ImageClickListener,
     private val requestManager: RequestManager,
     private val preloadSizeProvider: ViewPreloadSizeProvider<*>
 ) :
@@ -41,5 +41,6 @@ class OddImageViewHolder(
                     )
             )
             .into(authorImage)
+        oddImage.setOnClickListener { imageClickListener.onImageClick(item) }
     }
 }

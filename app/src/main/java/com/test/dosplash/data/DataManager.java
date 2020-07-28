@@ -52,4 +52,8 @@ public class DataManager {
     public Call<ArrayList<UnsplashImage>> getImages(int page, int item) {
         return apiManager.getImages(page, item);
     }
+
+    public Call<UnsplashImage> getRandomImages() {
+        return apiManager.getRandomImages();
+    }
 }

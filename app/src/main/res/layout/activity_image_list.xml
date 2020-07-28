@@ -123,26 +123,29 @@
                         </FrameLayout>
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/imageList"
+                    <FrameLayout
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp0"
-                        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/banner"
-                        tools:itemCount="28"
-                        tools:listitem="@layout/item_images_even" />
-
-                    <FrameLayout
-                        android:id="@+id/shimmer_frame"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:visibility="gone"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/banner">
 
-                        <include layout="@layout/layout_image_shimmer" />
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/imageList"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                            tools:itemCount="28"
+                            tools:listitem="@layout/item_images_even" />
 
+                        <FrameLayout
+                            android:id="@+id/shimmer_frame"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:visibility="gone">
+
+                            <include layout="@layout/layout_image_shimmer" />
+
+                        </FrameLayout>
                     </FrameLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.core.widget.NestedScrollView>
