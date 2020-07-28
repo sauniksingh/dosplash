@@ -13,7 +13,6 @@ import com.drbindra.badabusiness.ui.viewholder.BaseViewHolder
 import com.drbindra.badabusiness.ui.viewholder.LoadMoreViewHolder
 import com.test.dosplash.R
 import com.test.dosplash.listener.ChildListener
-import com.test.dosplash.listener.OnLoadMoreListener
 import com.test.dosplash.model.UnsplashImage
 import com.test.dosplash.ui.viewholder.EvenImageViewHolder
 import com.test.dosplash.ui.viewholder.OddImageViewHolder
@@ -25,7 +24,8 @@ import com.test.dosplash.ui.viewholder.OddImageViewHolder
 class ImageAdapter(
     private var items: ArrayList<UnsplashImage>,
     val childListener: ChildListener, private val requestManager: RequestManager,
-    private val viewPreloadSizeProvider: ViewPreloadSizeProvider<String>) :
+    private val viewPreloadSizeProvider: ViewPreloadSizeProvider<String>
+) :
     RecyclerView.Adapter<BaseViewHolder<*>>(), ListPreloader.PreloadModelProvider<String> {
     companion object {
         private const val TYPE_EVEN = 0
@@ -95,19 +95,20 @@ class ImageAdapter(
     // display loading during search request
     fun displayLoading() {
         if (!items.isNullOrEmpty()) {
-            val load = items[items.size -1];
-            if(!loading.equals(load.type, true)) {
+            val load = items[items.size - 1];
+            if (!loading.equals(load.type, true)) {
                 val image = UnsplashImage()
                 image.type = loading
                 items.add(image)
             }
+            notifyItemInserted(items.size - 1)
             notifyDataSetChanged()
         }
     }
 
     fun hideLoading() {
         if (isLoading()) {
-           val removePosition= items.size - 1
+            val removePosition = items.size - 1
             if (loading.equals(items[0].type, true)) {
                 items.removeAt(0)
             } else if (loading.equals(items[removePosition].type, true)) {
@@ -129,6 +130,7 @@ class ImageAdapter(
 
     fun setImages(images: ArrayList<UnsplashImage>) {
         items = images
+        displayLoading()
         notifyDataSetChanged()
     }
 }

@@ -1,6 +1,7 @@
 package com.test.dosplash.ui.image
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -29,12 +30,12 @@ class ImageListActivity : BaseActivity(), ChildListener {
     private var isLoading = false
     private var images = ArrayList<UnsplashImage>()
     private lateinit var linearLayoutManager: LinearLayoutManager
-    private val isLastPage = false
     val appExecutor = AppExecutors.getInstance()
     private lateinit var shimmerBinding: LayoutImageShimmerBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_image_list)
+        Log.d("AAO", "Raja")
         initView()
         initRecyclerView()
         setViewModel()
@@ -115,13 +116,6 @@ class ImageListActivity : BaseActivity(), ChildListener {
         appExecutor.mainThread().execute {
             mAdapter.setImages(images)
         }
-//        if((coursesTags?.tags !=null && coursesTags?.tags?.isNotEmpty()!!) || selectedTags.isNotEmpty() ) {
-//            rvTags.visibility = View.VISIBLE
-//            hideEmptyView(binding.error.llEmptyviewContainer, binding.error.tvTryAgain)
-//        } else {
-//            rvTags.visibility = View.GONE
-//            showEmptyView(AppConstants.EMPTY_VIEW_TYPES.NO_RECORD)
-//        }
     }
 
     private val recyclerViewOnScrollListener: RecyclerView.OnScrollListener =
@@ -132,8 +126,8 @@ class ImageListActivity : BaseActivity(), ChildListener {
                 val totalItemCount: Int = linearLayoutManager.itemCount
                 val firstVisibleItemPosition: Int =
                     linearLayoutManager.findFirstVisibleItemPosition()
-                if (!isLoading && !isLastPage) {
-                    if (visibleItemCount + firstVisibleItemPosition >= totalItemCount && firstVisibleItemPosition >= 0 && (totalItemCount >= pageSize || images.isEmpty())
+                if (!isLoading) {
+                    if (visibleItemCount + firstVisibleItemPosition >= totalItemCount && firstVisibleItemPosition >= 0
                     ) {
                         mAdapter.displayLoading()
                     }
@@ -165,5 +159,14 @@ class ImageListActivity : BaseActivity(), ChildListener {
             true
         )
         hideAndStopShimmerView(false)
+        swipeRefresh.setOnRefreshListener {
+            if (!isLoading) {
+                currentPage = 1
+                hitApi()
+            } else {
+                swipeRefresh.isRefreshing = false
+            }
+        }
     }
+
 }

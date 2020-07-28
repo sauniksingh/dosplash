@@ -26,5 +26,6 @@ class LoadMoreViewHolder(itemView: View, onLoadMoreListener: OnLoadMoreListener?
     override fun bind(item: Any) {
         loadProgress.visibility = View.GONE
         loadText.visibility = View.VISIBLE
+
     }
 }

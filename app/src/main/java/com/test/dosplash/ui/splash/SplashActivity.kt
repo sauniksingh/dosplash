@@ -14,6 +14,7 @@ class SplashActivity : BaseActivity() {
         Timer().schedule(object : TimerTask() {
             override fun run() {
                 startActivity(Intent(this@SplashActivity, ImageListActivity::class.java))
+                finish()
             }
         }, 5000)
     }
