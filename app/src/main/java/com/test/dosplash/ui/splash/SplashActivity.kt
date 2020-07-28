@@ -1,10 +1,10 @@
-package com.test.dosplash.splash
+package com.test.dosplash.ui.splash
 
 import android.content.Intent
 import android.os.Bundle
 import com.test.dosplash.R
 import com.test.dosplash.base.BaseAcitivity
-import com.test.dosplash.image.ImageListActivity
+import com.test.dosplash.ui.image.ImageListActivity
 import java.util.*
 
 class SplashActivity : BaseAcitivity() {

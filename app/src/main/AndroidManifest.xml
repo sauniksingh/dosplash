@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".splash.SplashActivity"
+            android:name="com.test.dosplash.ui.splash.SplashActivity"
             android:screenOrientation="nosensor">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".image.ImageListActivity"
+            android:name="com.test.dosplash.ui.image.ImageListActivity"
             android:screenOrientation="nosensor" />
     </application>
 

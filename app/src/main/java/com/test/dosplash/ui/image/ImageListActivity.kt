@@ -1,4 +1,4 @@
-package com.test.dosplash.image
+package com.test.dosplash.ui.image
 
 import android.os.Bundle
 import com.test.dosplash.R
