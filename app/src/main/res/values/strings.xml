@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">Do Splash</string>
     <string name="splash">Free photos from unsplash</string>
+    <string name="search">search</string>
+    <string name="header">header</string>
+    <string name="dosplash">DOSPLASH</string>
+    <string name="top_photo">Top photos from unsplash</string>
+    <string name="photographer">photographer</string>
 </resources>
