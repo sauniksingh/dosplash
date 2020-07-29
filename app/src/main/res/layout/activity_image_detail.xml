@@ -14,7 +14,9 @@
         android:layout_marginEnd="@dimen/dp16"
         android:background="@drawable/bg_circle_cross"
         android:contentDescription="@string/cross"
+        android:elevation="@dimen/dp5"
         android:src="@drawable/ic_cross"
+        android:translationZ="@dimen/dp5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -23,8 +25,10 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp0"
         android:contentDescription="@string/dosplash"
+
         android:scaleType="centerCrop"
         android:src="@drawable/ic_gallery_placeholder"
+
         app:layout_constraintHeight_percent="0.65"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
